@@ -1,0 +1,14 @@
+//tsconfig.json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@orbitx/shared": [
+        "shared/src/index.ts"
+      ],
+      "@orbitx/shared/*": [
+        "shared/src/*"
+      ],
+    }
+  }
+}
