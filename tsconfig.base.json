@@ -18,6 +18,7 @@
       "@/components/*": ["shared/src/components/*"],
       "@/providers/*": ["shared/src/providers/*"],
       "@/lib/*": ["shared/src/lib/*"],
+      "@/data/*": ["shared/src/data/*"],
     }
   },
   "exclude": ["node_modules", "tmp"]

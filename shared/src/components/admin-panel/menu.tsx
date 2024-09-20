@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { Ellipsis, LogOut } from "lucide-react";
+import { Ellipsis, CircleUserRound } from "lucide-react";
 import { usePathname } from "next/navigation";
-
+import { UserNav } from "./user-nav";
 import { cn } from "../../lib/utils";
 import { getMenuList } from "../../lib/menu-list";
 import { Button } from "../ui/button";
@@ -15,7 +15,6 @@ import {
   TooltipContent,
   TooltipProvider
 } from "../ui/tooltip";
-import React from "react";
 
 interface MenuProps {
   isOpen: boolean | undefined;
@@ -115,7 +114,7 @@ export function Menu({ isOpen }: MenuProps) {
                     className="w-full justify-center h-10 mt-5"
                   >
                     <span className={cn(isOpen === false ? "" : "mr-4")}>
-                      <LogOut size={18} />
+                      <UserNav/>
                     </span>
                     <p
                       className={cn(
@@ -123,12 +122,12 @@ export function Menu({ isOpen }: MenuProps) {
                         isOpen === false ? "opacity-0 hidden" : "opacity-100"
                       )}
                     >
-                      Sign out
+                      Sunil Kumar
                     </p>
                   </Button>
                 </TooltipTrigger>
                 {isOpen === false && (
-                  <TooltipContent side="right">Sign out</TooltipContent>
+                  <TooltipContent side="right">User Profile</TooltipContent>
                 )}
               </Tooltip>
             </TooltipProvider>
