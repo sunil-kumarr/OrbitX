@@ -15,8 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@orbitx/shared": ["shared/src/index.ts"],
-      "@orbitx/shared/server": ["shared/src/server.ts"]
+      "@/components/*": ["shared/src/components/*"],
+      "@/providers/*": ["shared/src/providers/*"],
+      "@/lib/*": ["shared/src/lib/*"],
     }
   },
   "exclude": ["node_modules", "tmp"]

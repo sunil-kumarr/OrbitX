@@ -1,4 +1,6 @@
 import './global.css';
+import { ThemeProvider } from "@/providers/theme-providers"
+import { GeistSans } from "geist/font/sans";
 
 export const metadata = {
   title: 'Welcome to web',
@@ -11,8 +13,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={GeistSans.className}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

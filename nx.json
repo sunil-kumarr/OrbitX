@@ -70,9 +70,15 @@
     }
   },
   "projects": {
-    "api": {},
+    "api": {
+      "tags":["type:server"]
+    },
     "web": {
-      "implicitDependencies": ["api"]
+      "tags":["type:webapp"],
+      "implicitDependencies": ["shared"]
+    },
+    "shared":{
+      "tags":["type:ui"]
     }
   }
 }

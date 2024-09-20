@@ -9,7 +9,8 @@
         "cssVariables": true
     },
     "aliases": {
-        "components": "@orbitx/shared/components",
-        "utils": "@orbitx/shared/lib"
+        
+       "components": "./shared/src/components",
+        "utils": "./shared/src/lib/utils"
     }
 }
