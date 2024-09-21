@@ -77,6 +77,9 @@ importers:
       cmdk:
         specifier: ^1.0.0
         version: 1.0.0(@types/react-dom@18.3.0)(@types/react@18.3.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      date-fns:
+        specifier: ^4.1.0
+        version: 4.1.0
       geist:
         specifier: ^1.3.1
         version: 1.3.1(next@14.2.11(@babel/core@7.25.2)(@playwright/test@1.47.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.78.0))
@@ -92,6 +95,9 @@ importers:
       react:
         specifier: 18.3.1
         version: 18.3.1
+      react-day-picker:
+        specifier: ^9.1.1
+        version: 9.1.1(react@18.3.1)
       react-dom:
         specifier: 18.3.1
         version: 18.3.1(react@18.3.1)
@@ -971,6 +977,9 @@ packages:
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
+
+  '@date-fns/tz@1.0.2':
+    resolution: {integrity: sha512-iKxj0kXMy7Qe6vjK+flz33cpy2j0dnTKT5i54p3fFlB411J47aSs6HBg7LOO5X9LjDi2iNlctD9rFn738ySOGQ==}
 
   '@discoveryjs/json-ext@0.5.7':
     resolution: {integrity: sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==}
@@ -3783,6 +3792,9 @@ packages:
     resolution: {integrity: sha512-t/Ygsytq+R995EJ5PZlD4Cu56sWa8InXySaViRzw9apusqsOO2bQP+SbYzAhR0pFKoB+43lYy8rWban9JSuXnA==}
     engines: {node: '>= 0.4'}
 
+  date-fns@4.1.0:
+    resolution: {integrity: sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==}
+
   date-format@4.0.14:
     resolution: {integrity: sha512-39BOQLs9ZjKh0/patS9nrT8wc3ioX3/eA/zgbKNopnF2wCqJEoxywwwElATYvRsXdnOxA/OQeQoFZ3rFjVajhg==}
     engines: {node: '>=4.0'}
@@ -6362,6 +6374,11 @@ packages:
     resolution: {integrity: sha512-8zGqypfENjCIqGhgXToC8aB2r7YrBX+AQAfIPs/Mlk+BtPTztOvTS01NRW/3Eh60J+a48lt8qsCzirQ6loCVfA==}
     engines: {node: '>= 0.8'}
 
+  react-day-picker@9.1.1:
+    resolution: {integrity: sha512-z+xPpd5N42kIqt27XEIyawJgKEya2l5GJMTpZ9FIclqdu40BFfKR4rjQlnXz05h2Gxh0s2F72gL/JCYWuteCIg==}
+    peerDependencies:
+      react: '>=16.8.0'
+
   react-dom@18.3.1:
     resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
     peerDependencies:
@@ -8622,6 +8639,8 @@ snapshots:
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
+
+  '@date-fns/tz@1.0.2': {}
 
   '@discoveryjs/json-ext@0.5.7': {}
 
@@ -12336,6 +12355,8 @@ snapshots:
       es-errors: 1.3.0
       is-data-view: 1.0.1
 
+  date-fns@4.1.0: {}
+
   date-format@4.0.14: {}
 
   debug@2.6.9:
@@ -15385,6 +15406,12 @@ snapshots:
       http-errors: 2.0.0
       iconv-lite: 0.4.24
       unpipe: 1.0.0
+
+  react-day-picker@9.1.1(react@18.3.1):
+    dependencies:
+      '@date-fns/tz': 1.0.2
+      date-fns: 4.1.0
+      react: 18.3.1
 
   react-dom@18.3.1(react@18.3.1):
     dependencies:
