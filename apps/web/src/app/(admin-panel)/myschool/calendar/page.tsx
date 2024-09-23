@@ -1,4 +1,4 @@
-import CalendarToolbar from '@/components/calendar/toolbar';
+
 import EventCalendar from "@/components/calendar/event-calendar";
 
 export default function RoomPage() {
@@ -18,7 +18,7 @@ export default function RoomPage() {
           </p>
         </div>
       </div>
-      <CalendarToolbar/>
+
       <EventCalendar/>
     </div>
   );

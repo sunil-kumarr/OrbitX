@@ -1,12 +1,20 @@
-"use client"
+'use client';
 import React, { useState } from 'react';
 import { Button } from '../ui/button'; // Import necessary UI components from ShadCN
-import { Card } from '../ui/card';
-import { ChevronLeft, ChevronRight } from 'lucide-react'; // Assuming you're using lucide icons for chevrons
+import { Card, CardContent, CardTitle } from '../ui/card';
+import { ChevronLeft, ChevronRight, MoreVertical } from 'lucide-react'; // Assuming you're using lucide icons for chevrons
+import { useEventStore, CalendarEvent, EventStore } from '../../hooks/use-event-store';
+import { AddEventModal } from './add-event-modal';
+import { Combobox, COption } from '../common/room-selector';
+import ViewSelector from './view-selector';
+import CurrentDaySelector from './current-day';
+import { useStore } from '../../hooks/use-store';
+import EventCard from './event';
 
 export default function EventCalendar() {
+  const eventStore = useStore (useEventStore,(state) => state)
   const [weekOffset, setWeekOffset] = useState(0); // Offset in terms of weeks
-  const [events, setEvents] = useState<{ [key: string]: string[] }>({});
+
 
   // Function to calculate the current week's start and end dates based on offset
   const calculateWeekRange = (offset = 0) => {
@@ -24,7 +32,13 @@ export default function EventCalendar() {
   };
 
   // Helper function to format the date range as 'September 15-21'
-  const formatWeekRange = ({ startOfWeek, endOfWeek }: { startOfWeek: Date; endOfWeek: Date }) => {
+  const formatWeekRange = ({
+    startOfWeek,
+    endOfWeek,
+  }: {
+    startOfWeek: Date;
+    endOfWeek: Date;
+  }) => {
     const startMonth = startOfWeek.toLocaleString('default', { month: 'long' });
     const endMonth = endOfWeek.toLocaleString('default', { month: 'long' });
 
@@ -48,27 +62,55 @@ export default function EventCalendar() {
     setWeekOffset(weekOffset + direction); // Shift by one week
   };
 
-  // Function to handle event addition
-  const addEvent = (date: string) => {
-    const newEvent = prompt(`Add event for date ${date}`);
-    if (newEvent) {
-      setEvents((prevEvents) => ({
-        ...prevEvents,
-        [date]: [...(prevEvents[date] || []), newEvent],
-      }));
+  const onAddEvent = (event: CalendarEvent) => {
+    if (event) {
+      if(!event.id){
+        event.id = event.startDate.toLocaleDateString('en-CA')
+      }
+      eventStore?.addEvent(event.id, event);
     }
   };
 
   // Generate the dates for the current week (Sunday to Saturday)
-  const dates = [];
+  const dates: Date[] = [];
   for (let i = 0; i < 7; i++) {
     const date = new Date(startOfWeek);
     date.setDate(startOfWeek.getDate() + i);
     dates.push(date);
   }
 
+  const rooms: COption[] = [
+    {
+      value: 'room1',
+      label: 'Room 1',
+    },
+    {
+      value: 'room2',
+      label: 'Room 2',
+    },
+    {
+      value: 'room3',
+      label: 'Room 3',
+    },
+  ];
+
+
+
   return (
     <div className="p-6">
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex flex-1 items-center space-x-2">
+          {/* <Input
+          placeholder="Search Events"
+          className="h-8 w-[150px] lg:w-[250px]"
+        /> */}
+          <Combobox options={rooms} />
+          <ViewSelector />
+          <CurrentDaySelector />
+        </div>
+        <AddEventModal onAddEvent={onAddEvent} selectedDateString="" />
+      </div>
+
       {/* Week navigation */}
       <div className="flex justify-between items-center mb-4">
         <Button onClick={() => shiftWeek(-1)}>
@@ -81,44 +123,51 @@ export default function EventCalendar() {
       </div>
 
       {/* Days of Week Header */}
-      <div className="grid grid-cols-7 gap-4 mb-4">
-        {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day, index) => (
-          <div key={index} className="text-center font-medium">
-            {day}
-          </div>
-        ))}
-      </div>
-
-      {/* Calendar Dates */}
-      <div className="grid grid-cols-7 gap-4">
-        {dates.map((date, index) => {
-          const dateString = date.toLocaleDateString('en-CA'); // Example: 2024-09-15
-          const displayDate = date.getDate();
-
-          return (
-            <div
-              key={index}
-              className="border border-gray-300 rounded-md h-auto flex flex-col items-center justify-center p-2"
-            >
-              <div className="text-lg font-semibold mb-2">{displayDate}</div>
-
-              {/* Add Event Button */}
-              <Button variant="outline" size="sm" onClick={() => addEvent(dateString)}>
-                + Add Event
-              </Button>
-
-              {/* Display Events for this Date */}
-              <div className="mt-2 w-full">
-                {events[dateString] &&
-                  events[dateString].map((event, i) => (
-                    <Card key={i} className="p-2 mt-1">
-                      {event}
-                    </Card>
+      <div className="w-full max-w-5xl mx-auto p-4">
+        <div className="grid grid-cols-7 gap-0">
+          {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(
+            (day, index) => {
+              const displayDate = dates[index].getDate();
+              return (
+                <div key={day} className="flex flex-col items-center">
+                  <div className="text-sm text-gray-500">{day}</div>
+                  <div className="text-2xl font-bold">{displayDate}</div>
+                </div>
+              );
+            }
+          )}
+          {dates.map((date, index) => {
+            const dateString = date.toLocaleDateString('en-CA'); // Example: 2024-09-15
+            const isFirstOrLast = index === 0 || index === dates.length - 1;
+            console.log(eventStore?.events)
+            return (
+              <div
+                key={`card-${dateString}`}
+                className={`h-auto min-h-[12rem] border-t-2 border-b-2  ${
+                  isFirstOrLast
+                    ? index === 0
+                      ? 'border-l-2 rounded-tl-sm rounded-bl-sm'
+                      : index === dates.length - 1
+                      ? 'border-r-2 border-l-2 rounded-tr-sm rounded-br-sm'
+                      : ''
+                    : 'border-l-2'
+                } `}
+              >
+                <div className="h-full flex flex-col">
+                  {eventStore?.events[dateString]?.map((event) => (
+                    <EventCard event={event}/>
                   ))}
+                  <div className="m-2">
+                    <AddEventModal
+                      onAddEvent={onAddEvent}
+                      selectedDateString={dateString}
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );
