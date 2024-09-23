@@ -1,37 +1,81 @@
 "use client"
 
 import * as React from "react"
-import * as TabsPrimitive from "@radix-ui/react-tabs"
 
 import { cn } from "../../lib/utils"
+import * as TabsPrimitive from "@radix-ui/react-tabs"
+import { type VariantProps, cva } from "class-variance-authority"
 
 const Tabs = TabsPrimitive.Root
 
+const TabsListVariants = cva("inline-flex items-bottom justify-bottom h-[60px]", {
+  variants: {
+    variant: {
+      default: "rounded-lg bg-muted p-1 text-muted-foreground",
+      underline: "border-b rounded-none bg-background gap-2 pl-10 justify-start",
+    },
+    width: {
+      full: "w-full",
+      fit: "w-fit",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+})
+
+const TabsTriggerVariants = cva(
+  "inline-flex items-center justify-center whitespace-nowrap text-md font-normal transition-all disabled:pointer-events-none data-[state=active]:text-foreground px-3",
+  {
+    variants: {
+      variant: {
+        default:
+          "inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow",
+        underline:
+          "bg-background border-b-2 border-background focus:border-primary ring-0 outline-none shadow-none data-[state=active]:shadow-none data-[state=active]:border-b-4 data-[state=active]:border-primary disabled:opacity-100 data-[state=active]:shadow-none data-[state=active]:bg-gray-100 rounded-none m-0 pt-1.5 pb-2 hover:bg-background-muted",
+      },
+      width: {
+        full: "w-full",
+        fit: "w-fit",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  },
+)
+
+export interface TabsListProps
+  extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>,
+    VariantProps<typeof TabsListVariants> {
+  asChild?: boolean
+}
+
 const TabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
-  React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>
->(({ className, ...props }, ref) => (
+  TabsListProps
+>(({ className, variant, width, asChild = false, ...props }, ref) => (
   <TabsPrimitive.List
     ref={ref}
-    className={cn(
-      "inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground",
-      className
-    )}
+    className={cn(TabsListVariants({ variant, width, className }))}
     {...props}
   />
 ))
 TabsList.displayName = TabsPrimitive.List.displayName
 
+export interface TabsTriggerProps
+  extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>,
+    VariantProps<typeof TabsTriggerVariants> {
+  asChild?: boolean
+}
+
 const TabsTrigger = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
->(({ className, ...props }, ref) => (
+  TabsTriggerProps
+>(({ className, variant, width, asChild = false, ...props }, ref) => (
   <TabsPrimitive.Trigger
     ref={ref}
-    className={cn(
-      "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm",
-      className
-    )}
+    className={cn(TabsTriggerVariants({ variant, width, className }))}
     {...props}
   />
 ))
@@ -45,7 +89,7 @@ const TabsContent = React.forwardRef<
     ref={ref}
     className={cn(
       "mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-      className
+      className,
     )}
     {...props}
   />

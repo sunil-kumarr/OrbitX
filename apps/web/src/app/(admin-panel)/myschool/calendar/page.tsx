@@ -1,7 +1,7 @@
 
 import EventCalendar from "@/components/calendar/event-calendar";
 
-export default function RoomPage() {
+export default function CalendarPage() {
   const date = new Date();
   const currentMonth = date.toLocaleString('en-US', {
     month: 'long',
