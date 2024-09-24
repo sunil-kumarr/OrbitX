@@ -1,5 +1,5 @@
 import { DataTable } from '@/components/tables/data-table';
-import { columns } from '@/components/tables/columns';
+import { studentColumns } from '@/data/students/columns';
 import { Button } from '@/components/ui/button';
 import { PlusCircleIcon, Terminal } from 'lucide-react';
 import {AddEventModal} from "@/components/calendar/add-event-modal"
@@ -25,7 +25,7 @@ export default function RoomPage() {
         </div>
       </div>
    
-      <DataTable data={[]} columns={columns} />
+      <DataTable data={[]} columns={studentColumns} />
     </div>
   );
 }

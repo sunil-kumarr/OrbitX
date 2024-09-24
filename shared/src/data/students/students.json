@@ -1,0 +1,42 @@
+[
+  {
+    "name": "John",
+    "room": "New York",
+    "status": "Present",
+    "absentReason": "Sick",
+    "isCheckedIn": true,
+    "isAbsent": false
+  },
+  {
+    "name": "Emma",
+    "room": "Los Angeles",
+    "status": "Late",
+    "absentReason": "Vacation",
+    "isCheckedIn": false,
+    "isAbsent": true
+  },
+  {
+    "name": "Liam",
+    "room": "Chicago",
+    "status": "Absent",
+    "absentReason": "Family Emergency",
+    "isCheckedIn": true,
+    "isAbsent": true
+  },
+  {
+    "name": "Olivia",
+    "room": "Houston",
+    "status": "Present",
+    "absentReason": "Personal",
+    "isCheckedIn": true,
+    "isAbsent": false
+  },
+  {
+    "name": "Noah",
+    "room": "Phoenix",
+    "status": "Present",
+    "absentReason": "Vacation",
+    "isCheckedIn": true,
+    "isAbsent": false
+  }
+]

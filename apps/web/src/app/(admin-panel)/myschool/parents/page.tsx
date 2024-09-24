@@ -1,11 +1,12 @@
 'use client';
 
 import { DataTable } from '@/components/tables/data-table';
-import { columns } from '@/components/tables/columns';
+import { studentColumns } from '@/data/students/columns';
 import { Button } from '@/components/ui/button';
 import { PlusCircleIcon, Underline } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useState } from 'react';
+import Banner from '@/components/ui/banner';
 
 export default function ParentPage() {
   const [selectedTab, updateSelectedTab] = useState('parents');
@@ -41,12 +42,31 @@ export default function ParentPage() {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="parents">
-          <div className="m-8">
-            <DataTable data={[]} columns={columns} />
+          <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
+            <div className="flex items-center justify-between space-y-2">
+              <div>
+              <h2 className="text-2xl font-bold tracking-tight">Parents List</h2>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Button>
+                  <PlusCircleIcon className="mr-2 h-4 w-4" /> Add Parent
+                </Button>
+              </div>
+            </div>
+            <Banner/>
+            <DataTable data={[]} columns={studentColumns} />
           </div>
         </TabsContent>
-        <TabsContent value="family">Change your password here.</TabsContent>
-        <TabsContent value="pickups">Change your password here.</TabsContent>
+        <TabsContent value="family">
+          <div className="m-8">
+            <DataTable data={[]} columns={studentColumns} />
+          </div>
+        </TabsContent>
+        <TabsContent value="pickups">
+          <div className="m-8">
+            <DataTable data={[]} columns={studentColumns} />
+          </div>
+        </TabsContent>
       </Tabs>
     </div>
   );

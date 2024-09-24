@@ -25,7 +25,7 @@ const TabsListVariants = cva("inline-flex items-bottom justify-bottom h-[60px]",
 })
 
 const TabsTriggerVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap text-md font-normal transition-all disabled:pointer-events-none data-[state=active]:text-foreground px-3",
+  "inline-flex items-center justify-center whitespace-nowrap text-sm font-normal transition-all disabled:pointer-events-none data-[state=active]:text-foreground px-3",
   {
     variants: {
       variant: {

@@ -9,45 +9,82 @@ import {
     StopwatchIcon,
   } from "@radix-ui/react-icons"
   
-  export const labels = [
+  export const absentReasons = [
     {
-      value: "bug",
-      label: "Bug",
+      value: "appointment",
+      label: "Appointment",
     },
     {
-      value: "feature",
-      label: "Feature",
+      value: "illness",
+      label: "Illness",
     },
     {
-      value: "documentation",
-      label: "Documentation",
+      value: "weather",
+      label: "Weather",
+    },
+    {
+      value: "vacation",
+      label: "Vacation",
+    },
+    {
+      value: "holiday",
+      label: "Holiday",
+    },
+    {
+      value: "other",
+      label: "Other",
     },
   ]
   
   export const statuses = [
     {
-      value: "backlog",
-      label: "Backlog",
+      value: "prospect",
+      label: "Prospect",
       icon: QuestionMarkCircledIcon,
     },
     {
-      value: "todo",
-      label: "Todo",
+      value: "toured",
+      label: "Toured",
       icon: CircleIcon,
     },
     {
-      value: "in progress",
-      label: "In Progress",
+      value: "applied",
+      label: "Applied",
       icon: StopwatchIcon,
     },
     {
-      value: "done",
-      label: "Done",
+      value: "waitlist",
+      label: "WaitList",
       icon: CheckCircledIcon,
     },
     {
-      value: "canceled",
-      label: "Canceled",
+      value: "enrolled",
+      label: "Enrolled",
+      icon: CrossCircledIcon,
+    },
+    {
+      value: "active",
+      label: "Active",
+      icon: CrossCircledIcon,
+    },
+    {
+      value: "inactive",
+      label: "Inactive",
+      icon: CrossCircledIcon,
+    },
+    {
+      value: "graduated",
+      label: "Graduated",
+      icon: CrossCircledIcon,
+    },
+    {
+      value: "removed",
+      label: "Removed",
+      icon: CrossCircledIcon,
+    },
+    {
+      value: "duplicate",
+      label: "Duplicate",
       icon: CrossCircledIcon,
     },
   ]

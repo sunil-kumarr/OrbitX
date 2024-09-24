@@ -1,20 +1,26 @@
 import fs from "fs"
 import path from "path"
 import { faker } from "@faker-js/faker"
+import { fileURLToPath } from 'url';
+import { absentReasons, statuses } from "./data"
 
-import { labels, priorities, statuses } from "./data"
+// Resolve __dirname for ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const tasks = Array.from({ length: 100 }, () => ({
-  id: `TASK-${faker.number.int({ min: 1000, max: 9999 })}`,
-  title: faker.hacker.phrase().replace(/^./, (letter) => letter.toUpperCase()),
+  name: faker.person.firstName(),
+  room: faker.location.city(),
   status: faker.helpers.arrayElement(statuses).value,
-  label: faker.helpers.arrayElement(labels).value,
-  priority: faker.helpers.arrayElement(priorities).value,
+  absentReason: faker.helpers.arrayElement(absentReasons).value,
+  isCheckedIn: faker.datatype.boolean(),
+  isAbsent: faker.datatype.boolean(),
 }))
 
 fs.writeFileSync(
-  path.join(__dirname, "tasks.json"),
+  path.join(__dirname, "students.json"),
+  
   JSON.stringify(tasks, null, 2)
 )
 
-console.log("✅ Tasks data generated.")
+console.log("✅ Students data generated.")
