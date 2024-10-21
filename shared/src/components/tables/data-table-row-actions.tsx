@@ -18,7 +18,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu"
 
-import { labels } from "../../data/students/data"
+import { labels } from "../../data/students/options"
 import { taskSchema } from "../../data/students/schema"
 
 interface DataTableRowActionsProps<TData> {

@@ -1,10 +1,23 @@
 import { DataTable } from '@/components/tables/data-table';
-import { studentColumns } from '@/data/students/columns';
-import { Button } from '@/components/ui/button';
-import { PlusCircleIcon, Terminal } from 'lucide-react';
-import {AddEventModal} from "@/components/calendar/add-event-modal"
+import { roomColumns } from '@/data/rooms/columns';
+import { promises as fs } from 'fs';
+import path from 'path';
+import { z } from 'zod';
+import RoomAdditionSheet from '@/components/admin-panel/room-addition-sheet';
+import { roomSchema } from '@/data/rooms/schema';
 
-export default function RoomPage() {
+async function getRooms() {
+  const data = await fs.readFile(
+    path.join(process.cwd(), '../../shared/src/data/rooms/rooms.json')
+  );
+
+  const tasks = JSON.parse(data.toString());
+
+  return z.array(roomSchema).parse(tasks);
+}
+
+export default async function RoomPage() {
+  const rooms = await getRooms();
   return (
     <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
       <div className="flex items-center justify-between space-y-2">
@@ -18,14 +31,13 @@ export default function RoomPage() {
             How they are set up is up to you!
           </p>
         </div>
+
         <div className="flex items-center space-x-2">
-          <Button>
-            <PlusCircleIcon className="mr-2 h-4 w-4" /> Add
-          </Button>
+          <RoomAdditionSheet />
         </div>
       </div>
-   
-      <DataTable data={[]} columns={studentColumns} />
+
+      <DataTable data={rooms} columns={roomColumns} />
     </div>
   );
 }

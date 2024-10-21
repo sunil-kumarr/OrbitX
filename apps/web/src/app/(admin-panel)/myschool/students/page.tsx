@@ -1,13 +1,11 @@
-import { ContentLayout } from '@/components/admin-panel/content-layout';
 import { DataTable } from '@/components/tables/data-table';
 import { studentColumns } from '@/data/students/columns';
-import { Button } from '@/components/ui/button';
 import Banner from '@/components/ui/banner';
-import { PlusCircleIcon } from 'lucide-react';
 import { promises as fs } from 'fs';
 import path from 'path';
 import { z } from 'zod';
 import { studentSchema } from '@/data/students/schema';
+import StudentRegistrationSheet from '@/components/admin-panel/student-registration-sheet'
 
 async function getStudents() {
   const data = await fs.readFile(
@@ -28,9 +26,7 @@ export default async function StudentPage() {
           <h2 className="text-2xl font-bold tracking-tight">Student List</h2>
         </div>
         <div className="flex items-center space-x-2">
-          <Button>
-            <PlusCircleIcon className="mr-2 h-4 w-4" /> Add Student
-          </Button>
+          <StudentRegistrationSheet/>
         </div>
       </div>
       <Banner />

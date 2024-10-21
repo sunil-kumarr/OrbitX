@@ -75,7 +75,7 @@
     },
     "web": {
       "tags":["type:webapp"],
-      "implicitDependencies": ["shared"]
+      "implicitDependencies": ["type:ui"]
     },
     "shared":{
       "tags":["type:ui"]

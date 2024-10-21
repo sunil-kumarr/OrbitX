@@ -2,15 +2,12 @@
 
 import { ColumnDef } from '@tanstack/react-table';
 
-import { Badge } from '../../components/ui/badge';
-import { Checkbox } from '../../components/ui/checkbox';
-
-import { priorities, statuses } from './data';
 import { Student } from './schema';
 import { DataTableColumnHeader } from '../../components/tables/data-table-column-header';
-import { DataTableRowActions } from '../../components/tables/data-table-row-actions';
+
 import { Button } from '../../components/ui/button';
-import { ArrowRightCircleIcon, Cross } from 'lucide-react';
+import { ArrowLeftCircleIcon, ArrowRightCircleIcon, CalendarX} from 'lucide-react';
+import { statuses } from './options';
 
 export const studentColumns: ColumnDef<Student>[] = [
   {
@@ -27,7 +24,7 @@ export const studentColumns: ColumnDef<Student>[] = [
         </div>
       );
     },
-    enableHiding: false
+    enableHiding: false,
   },
   {
     accessorKey: 'room',
@@ -54,9 +51,9 @@ export const studentColumns: ColumnDef<Student>[] = [
 
       return (
         <div className="flex w-[100px] items-center">
-          {status.icon && (
+          {/* {status.icon && (
             <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-          )}
+          )} */}
           <span>{status.label}</span>
         </div>
       );
@@ -70,10 +67,7 @@ export const studentColumns: ColumnDef<Student>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Attendance" />
     ),
-    cell: ({ row }) => (
-      <span>{row.getValue('absentReason')}</span>
-      
-    ),
+    cell: ({ row }) => <span>{row.getValue('absentReason')}</span>,
     enableSorting: false,
     enableHiding: false,
   },
@@ -81,14 +75,15 @@ export const studentColumns: ColumnDef<Student>[] = [
     accessorKey: 'isAbsent',
     header: ({ column }) => <div></div>,
     cell: ({ row }) => (
-      <Button variant="ghost">
-        <Cross />
-        {row.getValue('isCheckedIn') === false
+      
+      row.getValue('isCheckedIn') === false
           ? row.getValue('isAbsent') === false
-            ? 'Mark Absent'
+            ? <Button variant="destructive">
+              <CalendarX size={16}/>
+              <p className='ml-2'>Mark Absent</p></Button>
             : row.getValue('isAbsent')
-          : ''}
-      </Button>
+          : ''
+   
     ),
     enableSorting: false,
     enableHiding: false,
@@ -97,9 +92,19 @@ export const studentColumns: ColumnDef<Student>[] = [
     accessorKey: 'isCheckedIn',
     header: ({ column }) => <div></div>,
     cell: ({ row }) => (
-      <Button variant="outline">
-        <ArrowRightCircleIcon />
+      <Button variant="outline" size="sm">
+        <div className='flex flex-row justify-center'>
+        {row.getValue('isCheckedIn') === true ? (
+          <ArrowRightCircleIcon size={16} color='red'/>
+        ) : (
+          <ArrowLeftCircleIcon size={16} color='green'/>
+        )}
+        <span className='w-[70px]'>
         {row.getValue('isCheckedIn') === true ? 'Check Out' : 'Check In'}
+        </span>
+       
+      
+        </div>
       </Button>
     ),
     enableSorting: false,

@@ -2,7 +2,7 @@
   {
     "name": "John",
     "room": "New York",
-    "status": "Present",
+    "status": "prospect",
     "absentReason": "Sick",
     "isCheckedIn": true,
     "isAbsent": false
@@ -10,15 +10,15 @@
   {
     "name": "Emma",
     "room": "Los Angeles",
-    "status": "Late",
+    "status": "removed",
     "absentReason": "Vacation",
     "isCheckedIn": false,
-    "isAbsent": true
+    "isAbsent": false
   },
   {
     "name": "Liam",
     "room": "Chicago",
-    "status": "Absent",
+    "status": "duplicate",
     "absentReason": "Family Emergency",
     "isCheckedIn": true,
     "isAbsent": true
@@ -26,7 +26,7 @@
   {
     "name": "Olivia",
     "room": "Houston",
-    "status": "Present",
+    "status": "waitlist",
     "absentReason": "Personal",
     "isCheckedIn": true,
     "isAbsent": false
@@ -34,7 +34,7 @@
   {
     "name": "Noah",
     "room": "Phoenix",
-    "status": "Present",
+    "status": "waitlist",
     "absentReason": "Vacation",
     "isCheckedIn": true,
     "isAbsent": false

@@ -1,0 +1,11 @@
+[
+  {
+    "name": "Demo Room",
+    "description": "Test room",
+    "type": "playground",
+    "capacity": 10,
+    "status": "Engaged",
+    "students": [],
+    "isActive": true
+  }
+]
