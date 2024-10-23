@@ -5,7 +5,7 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import { z } from 'zod';
 import { studentSchema } from '@/data/students/schema';
-import StudentRegistrationSheet from '@/components/admin-panel/student-registration-sheet'
+import StudentRegistrationSheet from '@/components/sheets/student-registration-sheet';
 
 async function getStudents() {
   const data = await fs.readFile(
@@ -26,10 +26,13 @@ export default async function StudentPage() {
           <h2 className="text-2xl font-bold tracking-tight">Student List</h2>
         </div>
         <div className="flex items-center space-x-2">
-          <StudentRegistrationSheet/>
+          <StudentRegistrationSheet />
         </div>
       </div>
-      <Banner />
+      <Banner
+        title="Welcome to your student list!"
+        description="This is where you will add and manage all students in your school. Explore the platform's functionality with demo students."
+      />
       <DataTable data={students} columns={studentColumns} />
     </div>
   );

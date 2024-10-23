@@ -1,4 +1,4 @@
-import StudentRegistrationSheet from '@/components/admin-panel/student-registration-sheet';
+import StudentRegistrationSheet from '@/components/sheets/student-registration-sheet';
 import { DataTable } from '@/components/tables/data-table';
 import Banner from '@/components/ui/banner';
 import { Button } from '@/components/ui/button';

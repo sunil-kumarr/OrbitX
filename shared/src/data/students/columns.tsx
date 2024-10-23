@@ -102,8 +102,6 @@ export const studentColumns: ColumnDef<Student>[] = [
         <span className='w-[70px]'>
         {row.getValue('isCheckedIn') === true ? 'Check Out' : 'Check In'}
         </span>
-       
-      
         </div>
       </Button>
     ),

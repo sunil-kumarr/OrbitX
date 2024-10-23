@@ -3,7 +3,7 @@ import { roomColumns } from '@/data/rooms/columns';
 import { promises as fs } from 'fs';
 import path from 'path';
 import { z } from 'zod';
-import RoomAdditionSheet from '@/components/admin-panel/room-addition-sheet';
+import RoomAdditionSheet from '@/components/sheets/room-addition-sheet';
 import { roomSchema } from '@/data/rooms/schema';
 
 async function getRooms() {

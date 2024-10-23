@@ -1,7 +1,22 @@
+'use client'
 import { X } from 'lucide-react'; // This is the close (X) icon
 import { Button } from './button';
+import { useState } from 'react';
 
-export default function Banner() {
+interface BannerProps {
+  title?: string;
+  description?: string;
+}
+
+const Banner: React.FC<BannerProps> = ({ title, description }) => {
+  const [isVisible, setIsVisible] = useState<boolean>(true);
+
+  const handleClose = () => {
+    setIsVisible(false);
+  };
+
+  if (!isVisible) return null; // Don't render the banner if it's not visible
+
   return (
     <div className="flex items-start justify-between bg-teal-50 border border-teal-300 rounded-lg p-4">
       {/* Icon Section */}
@@ -28,24 +43,25 @@ export default function Banner() {
         {/* Text Section */}
         <div>
           <h3 className="text-lg font-semibold text-gray-900">
-            Welcome to your student list!
+            {title || "Welcome to your student list!"}
           </h3>
           <p className="mt-1 text-sm text-gray-600">
-            This is where you will add and manage all students in your school.
-            Explore the platform's functionality with demo students.
+            {description || "This is where you will add and manage all students in your school. Explore the platform's functionality with demo students."}
           </p>
           <a href="#" className="text-sm text-indigo-600 hover:underline mt-2">
             Learn more
           </a>
         </div>
       </div>
-      
+
       {/* Close Button */}
       <div>
-        <Button variant="ghost" className="text-gray-500 hover:text-gray-700">
+        <Button variant="ghost" className="text-gray-500 hover:text-gray-700" onClick={handleClose}>
           <X className="w-5 h-5" />
         </Button>
       </div>
     </div>
   );
-}
+};
+
+export default Banner;

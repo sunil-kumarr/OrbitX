@@ -2,11 +2,10 @@
 
 import { DataTable } from '@/components/tables/data-table';
 import { studentColumns } from '@/data/students/columns';
-import { Button } from '@/components/ui/button';
-import { PlusCircleIcon, Underline } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useState } from 'react';
 import Banner from '@/components/ui/banner';
+import AddParentSheet from '@/components/sheets/add-parent-sheet';
 
 export default function ParentPage() {
   const [selectedTab, updateSelectedTab] = useState('parents');
@@ -41,32 +40,28 @@ export default function ParentPage() {
             Approved Pickups
           </TabsTrigger>
         </TabsList>
-        <TabsContent value="parents">
-          <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
-            <div className="flex items-center justify-between space-y-2">
-              <div>
-              <h2 className="text-2xl font-bold tracking-tight">Parents List</h2>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Button>
-                  <PlusCircleIcon className="mr-2 h-4 w-4" /> Add Parent
-                </Button>
-              </div>
+        <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
+          <div className="flex items-center justify-between space-y-2">
+            <div>
+              <h2 className="text-2xl font-bold tracking-tight">
+                Parents List
+              </h2>
             </div>
-            <Banner/>
-            <DataTable data={[]} columns={studentColumns} />
+            <div className="flex items-center space-x-2">
+              <AddParentSheet />
+            </div>
           </div>
-        </TabsContent>
-        <TabsContent value="family">
-          <div className="m-8">
+          <Banner />
+          <TabsContent value="parents">
             <DataTable data={[]} columns={studentColumns} />
-          </div>
-        </TabsContent>
-        <TabsContent value="pickups">
-          <div className="m-8">
+          </TabsContent>
+          <TabsContent value="family">
             <DataTable data={[]} columns={studentColumns} />
-          </div>
-        </TabsContent>
+          </TabsContent>
+          <TabsContent value="pickups">
+            <DataTable data={[]} columns={studentColumns} />
+          </TabsContent>
+        </div>
       </Tabs>
     </div>
   );

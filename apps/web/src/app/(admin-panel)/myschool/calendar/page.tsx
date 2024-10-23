@@ -19,7 +19,7 @@ export default function CalendarPage() {
         </div>
       </div>
 
-      <EventCalendar/>
+      <EventCalendar buttonType="timeEvent"/>
     </div>
   );
 }

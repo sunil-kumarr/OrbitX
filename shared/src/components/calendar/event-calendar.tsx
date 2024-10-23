@@ -3,18 +3,28 @@ import React, { useState } from 'react';
 import { Button } from '../ui/button'; // Import necessary UI components from ShadCN
 import { Card, CardContent, CardTitle } from '../ui/card';
 import { ChevronLeft, ChevronRight, MoreVertical } from 'lucide-react'; // Assuming you're using lucide icons for chevrons
-import { useEventStore, CalendarEvent, EventStore } from '../../hooks/use-event-store';
+import {
+  useEventStore,
+  CalendarEvent,
+  EventStore,
+} from '../../hooks/use-event-store';
 import { AddEventModal } from './add-event-modal';
 import { Combobox, COption } from '../common/room-selector';
 import ViewSelector from './view-selector';
 import CurrentDaySelector from './current-day';
 import { useStore } from '../../hooks/use-store';
 import EventCard from './event';
+import CreateMenuSheet from '../sheets/create-menu-sheet';
 
-export default function EventCalendar() {
-  const eventStore = useStore (useEventStore,(state) => state)
+type CalendarButtonType = 'timeEvent' | 'MenuEvent';
+
+interface EventCalendarProps {
+  buttonType: CalendarButtonType
+}
+
+export default function EventCalendar({ buttonType }: EventCalendarProps) {
+  const eventStore = useStore(useEventStore, (state) => state);
   const [weekOffset, setWeekOffset] = useState(0); // Offset in terms of weeks
-
 
   // Function to calculate the current week's start and end dates based on offset
   const calculateWeekRange = (offset = 0) => {
@@ -64,8 +74,8 @@ export default function EventCalendar() {
 
   const onAddEvent = (event: CalendarEvent) => {
     if (event) {
-      if(!event.id){
-        event.id = event.startDate.toLocaleDateString('en-CA')
+      if (!event.id) {
+        event.id = event.startDate.toLocaleDateString('en-CA');
       }
       eventStore?.addEvent(event.id, event);
     }
@@ -94,8 +104,6 @@ export default function EventCalendar() {
     },
   ];
 
-
-
   return (
     <div className="p-6">
       <div className="flex items-center justify-between mb-4">
@@ -108,7 +116,11 @@ export default function EventCalendar() {
           <ViewSelector />
           <CurrentDaySelector />
         </div>
-        <AddEventModal onAddEvent={onAddEvent} selectedDateString="" />
+        {buttonType === 'timeEvent' ? (
+          <AddEventModal onAddEvent={onAddEvent} selectedDateString="" />
+        ) : (
+          <CreateMenuSheet />
+        )}
       </div>
 
       {/* Week navigation */}
@@ -139,7 +151,7 @@ export default function EventCalendar() {
           {dates.map((date, index) => {
             const dateString = date.toLocaleDateString('en-CA'); // Example: 2024-09-15
             const isFirstOrLast = index === 0 || index === dates.length - 1;
-            console.log(eventStore?.events)
+            console.log(eventStore?.events);
             return (
               <div
                 key={`card-${dateString}`}
@@ -155,7 +167,7 @@ export default function EventCalendar() {
               >
                 <div className="h-full flex flex-col">
                   {eventStore?.events[dateString]?.map((event) => (
-                    <EventCard event={event}/>
+                    <EventCard event={event} />
                   ))}
                   <div className="m-2">
                     <AddEventModal

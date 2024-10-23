@@ -1,31 +1,50 @@
-import { DataTable } from '@/components/tables/data-table';
-import { studentColumns } from '@/data/students/columns';
-import { Button } from '@/components/ui/button';
-import { PlusCircleIcon, Terminal } from 'lucide-react';
-import {AddEventModal} from "@/components/calendar/add-event-modal"
+'use client';
 
-export default function RoomPage() {
+import { DataTable } from '@/components/tables/data-table';
+import Banner from '@/components/ui/banner';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import CreateMenuSheet from '@/components/sheets/create-menu-sheet';
+import AddFoodItemSheet from '@/components/sheets/food-item-sheet';
+import { foodItemsColumns } from '@/data/food-menu/columns';
+import EventCalendar from '@/components/calendar/event-calendar';
+
+export default function FoodMenuPage() {
   return (
-    <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
-      <div className="flex items-center justify-between space-y-2">
-        <div>
-          <h2 className="text-2xl font-bold tracking-tight">Rooms</h2>
-          <p className="text-muted-foreground">
-            Rooms are your virtual classrooms for your school and can be a
-            classroom or play area you use for your students
-          </p>
-          <p className="text-muted-foreground">
-            How they are set up is up to you!
-          </p>
-        </div>
-        <div className="flex items-center space-x-2">
-          <Button>
-            <PlusCircleIcon className="mr-2 h-4 w-4" /> Add
-          </Button>
-        </div>
-      </div>
-      <AddEventModal />
-      <DataTable data={[]} columns={studentColumns} />
+    <div>
+      <Tabs defaultValue="menu_calendar" className="w-full">
+        <TabsList variant={'underline'} width={'full'}>
+          <TabsTrigger value="menu_calendar" variant={'underline'}>
+            Menu Calendar
+          </TabsTrigger>
+          <TabsTrigger value="food_items" variant={'underline'}>
+            Food Items
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="menu_calendar">
+          <div className="hidden h-full flex-1 flex-col space-y-8 p-2 md:flex">
+            <EventCalendar buttonType='MenuEvent'/>
+          </div>
+        </TabsContent>
+        <TabsContent value="food_items">
+          <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
+            <div className="flex items-center justify-between space-y-2">
+              <div>
+                <h2 className="text-2xl font-bold tracking-tight">
+                  Food Items
+                </h2>
+              </div>
+              <div className="flex items-center space-x-2">
+                <AddFoodItemSheet />
+              </div>
+            </div>
+            <Banner
+              title="Welcome to list of food items "
+              description="Here you can manage food items which can be used to create food menus"
+            />
+            <DataTable data={[]} columns={foodItemsColumns} />
+          </div>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
