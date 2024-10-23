@@ -54,18 +54,17 @@ export default function EventCalendar({ buttonType }: EventCalendarProps) {
     startOfWeek: Date;
     endOfWeek: Date;
   }) => {
-    const startMonth = startOfWeek.toLocaleString('default', { month: 'long' });
-    const endMonth = endOfWeek.toLocaleString('default', { month: 'long' });
+    const startMonth = startOfWeek.toLocaleString('default', {
+      month: 'short',
+    });
+    const endMonth = endOfWeek.toLocaleString('default', { month: 'short' });
 
-    const startDay = startOfWeek.getDate();
-    const endDay = endOfWeek.getDate();
+    const startDay = String(startOfWeek.getDate()).padStart(2, '0');
+    const endDay = String(endOfWeek.getDate()).padStart(2, '0');
 
     // If the start and end are in the same month
-    if (startMonth === endMonth) {
-      return `${startMonth} ${startDay}-${endDay}`;
-    } else {
-      return `${startMonth} ${startDay} - ${endMonth} ${endDay}`;
-    }
+    const formattedString = `${startMonth} ${startDay} - ${endMonth} ${endDay}`;
+    return formattedString;
   };
 
   // Get the current week's date range
@@ -124,7 +123,6 @@ export default function EventCalendar({ buttonType }: EventCalendarProps) {
               onClickLeftIcon={() => shiftWeek(-1)}
               rightIcon={ChevronRight}
               onClickRightIcon={() => shiftWeek(1)}
-             
             >
               <div className="text-sm font-semibold">{weekRangeString}</div>
             </Button>
@@ -140,27 +138,38 @@ export default function EventCalendar({ buttonType }: EventCalendarProps) {
       {/* Week navigation */}
 
       {/* Days of Week Header */}
-      <div className="w-full max-w-5xl mx-auto p-4">
-        <div className="grid grid-cols-7 gap-0">
+      <div className="w-full pt-4">
+        <div className="grid grid-cols-7 gap-0 items-center">
           {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(
             (day, index) => {
               const displayDate = dates[index].getDate();
+              const isToday =
+                dates[index].toDateString() === new Date().toDateString();
               return (
-                <div key={day} className="flex flex-col items-center">
+                <div key={day} className="flex flex-col items-center my-2">
                   <div className="text-sm text-gray-500">{day}</div>
-                  <div className="text-2xl font-bold">{displayDate}</div>
+                  <div
+                    className={`text-xl font-bold flex items-center justify-center w-10 h-10
+                    ${isToday ? 'bg-black text-white rounded-full' : ''}`}
+                  >
+                    {displayDate}
+                  </div>
                 </div>
               );
             }
           )}
           {dates.map((date, index) => {
             const dateString = date.toLocaleDateString('en-CA'); // Example: 2024-09-15
+            const isToday =
+              dates[index].toDateString() === new Date().toDateString();
             const isFirstOrLast = index === 0 || index === dates.length - 1;
             console.log(eventStore?.events);
             return (
               <div
                 key={`card-${dateString}`}
-                className={`h-auto min-h-[12rem] border-t-2 border-b-2  ${
+                className={`flex justify-center h-auto min-h-[12rem] border-t-2 border-b-2 ${
+                  isToday ? 'bg-blue-50' : ''
+                } ${
                   isFirstOrLast
                     ? index === 0
                       ? 'border-l-2 rounded-tl-sm rounded-bl-sm'
@@ -175,10 +184,14 @@ export default function EventCalendar({ buttonType }: EventCalendarProps) {
                     <EventCard event={event} />
                   ))}
                   <div className="m-2">
-                    <AddEventModal
-                      onAddEvent={onAddEvent}
-                      selectedDateString={dateString}
-                    />
+                    {buttonType === 'timeEvent' ? (
+                      <AddEventModal
+                        onAddEvent={onAddEvent}
+                        selectedDateString={dateString}
+                      />
+                    ) : (
+                      <CreateMenuSheet />
+                    )}
                   </div>
                 </div>
               </div>
