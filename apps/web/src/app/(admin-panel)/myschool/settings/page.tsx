@@ -2,7 +2,7 @@ import { DataTable } from '@/components/tables/data-table';
 import { studentColumns } from '@/data/students/columns';
 import { Button } from '@/components/ui/button';
 import { PlusCircleIcon, Terminal } from 'lucide-react';
-import {AddEventModal} from "@/components/calendar/add-event-modal"
+import {AddEventModal} from "@/components/modals/add-event-modal"
 
 export default function RoomPage() {
   return (

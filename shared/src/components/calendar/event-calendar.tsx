@@ -13,7 +13,7 @@ import {
   CalendarEvent,
   EventStore,
 } from '../../hooks/use-event-store';
-import { AddEventModal } from './add-event-modal';
+import { AddEventModal } from '../modals/add-event-modal';
 import { Combobox, COption } from '../common/room-selector';
 import ViewSelector from './view-selector';
 import CurrentDaySelector from './current-day';
@@ -167,7 +167,7 @@ export default function EventCalendar({ buttonType }: EventCalendarProps) {
             return (
               <div
                 key={`card-${dateString}`}
-                className={`flex justify-center h-auto min-h-[12rem] border-t-2 border-b-2 ${
+                className={`flex flex-col items-center h-auto min-h-[24rem] border-t-2 border-b-2 ${
                   isToday ? 'bg-blue-50' : ''
                 } ${
                   isFirstOrLast
