@@ -15,13 +15,13 @@ const CurrentDaySelector = () => {
   };
 
   return (
-    <div className="relative flex-grow" style={{ flex: '1 1 0%' }}>
+    <div >
       <Button
         variant={activeView === 'Today' ? 'outline' : 'ghost'}
        
         onClick={() => handleViewChange('Today')}
       >
-        <Calendar className="h-4 w-4 flex-shrink-0 text-muted-foreground" />
+        <Calendar className="h-4 w-4 flex-shrink-0 text-muted-foreground mr-1" />
         {activeView === 'Today' && (
           <span className="text-xs font-medium whitespace-nowrap">{activeView}</span>
         )}

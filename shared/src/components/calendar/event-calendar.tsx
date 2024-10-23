@@ -2,7 +2,12 @@
 import React, { useState } from 'react';
 import { Button } from '../ui/button'; // Import necessary UI components from ShadCN
 import { Card, CardContent, CardTitle } from '../ui/card';
-import { ChevronLeft, ChevronRight, MoreVertical } from 'lucide-react'; // Assuming you're using lucide icons for chevrons
+import {
+  ArrowLeftIcon,
+  ChevronLeft,
+  ChevronRight,
+  MoreVertical,
+} from 'lucide-react'; // Assuming you're using lucide icons for chevrons
 import {
   useEventStore,
   CalendarEvent,
@@ -19,7 +24,7 @@ import CreateMenuSheet from '../sheets/create-menu-sheet';
 type CalendarButtonType = 'timeEvent' | 'MenuEvent';
 
 interface EventCalendarProps {
-  buttonType: CalendarButtonType
+  buttonType: CalendarButtonType;
 }
 
 export default function EventCalendar({ buttonType }: EventCalendarProps) {
@@ -108,13 +113,22 @@ export default function EventCalendar({ buttonType }: EventCalendarProps) {
     <div className="p-6">
       <div className="flex items-center justify-between mb-4">
         <div className="flex flex-1 items-center space-x-2">
-          {/* <Input
-          placeholder="Search Events"
-          className="h-8 w-[150px] lg:w-[250px]"
-        /> */}
           <Combobox options={rooms} />
           <ViewSelector />
           <CurrentDaySelector />
+
+          <div className="inline-flex items-center">
+            <Button
+              variant="expandIcon"
+              leftIcon={ChevronLeft}
+              onClickLeftIcon={() => shiftWeek(-1)}
+              rightIcon={ChevronRight}
+              onClickRightIcon={() => shiftWeek(1)}
+             
+            >
+              <div className="text-sm font-semibold">{weekRangeString}</div>
+            </Button>
+          </div>
         </div>
         {buttonType === 'timeEvent' ? (
           <AddEventModal onAddEvent={onAddEvent} selectedDateString="" />
@@ -124,15 +138,6 @@ export default function EventCalendar({ buttonType }: EventCalendarProps) {
       </div>
 
       {/* Week navigation */}
-      <div className="flex justify-between items-center mb-4">
-        <Button onClick={() => shiftWeek(-1)}>
-          <ChevronLeft className="h-5 w-5" />
-        </Button>
-        <div className="text-lg font-semibold">{weekRangeString}</div>
-        <Button onClick={() => shiftWeek(1)}>
-          <ChevronRight className="h-5 w-5" />
-        </Button>
-      </div>
 
       {/* Days of Week Header */}
       <div className="w-full max-w-5xl mx-auto p-4">
